@@ -22,6 +22,7 @@ struct TouchBarDiscoverView: View {
                         Text("\(symbol.rawValue)")
                         Image(systemSymbol: symbol)
                     })
+                    .accentColor(nil)
                 }
             }
         }
@@ -42,6 +43,7 @@ struct TouchBarFindView: View {
                 Text("\(symbolName)")
                 Image(systemName: symbolName)
             })
+            .accentColor(nil)
         }
         .frame(width: 685, height: 30, alignment: .leading)
     }
@@ -62,6 +64,7 @@ struct TouchBarRandomView: View {
                     Image(systemName: symbolName)
                 }
             })
+            .accentColor(nil)
             Spacer()
             Button(action: {
                 symbolName = SFSymbol.allCases.randomElement()!.rawValue
@@ -69,6 +72,7 @@ struct TouchBarRandomView: View {
                 Text("Random")
                 Image(systemName: "die.face.5")
             })
+            .accentColor(nil)
         }
         .frame(width: 605, height: 30, alignment: .leading)
     }
@@ -79,6 +83,7 @@ struct ContentView: View {
     @State private var symbolName = ""
     @State private var randomSymbol = ""
     var body: some View {
+        VStack {
         TextField("Click here to discover all of the SF Symbols", text: $discover)
             .frame(width: 300, height: 60, alignment: .center)
             .padding(.horizontal)
@@ -89,12 +94,14 @@ struct ContentView: View {
             .onChange(of: (discover), perform: { newValue in
                 discover = ""
             })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
         TextField("Click here to find a symbol manually", text: $symbolName)
             .frame(width: 300, height: 60, alignment: .center)
             .padding(.horizontal)
             .touchBar(TouchBar {
                 TouchBarFindView(symbolName: symbolName)
             })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
         TextField("Click here to show a random SF Symbol", text: $randomSymbol)
             .frame(width: 300, height: 60, alignment: .center)
             .padding(.horizontal)
@@ -105,6 +112,8 @@ struct ContentView: View {
             .onChange(of: (randomSymbol), perform: { newValue in
                 randomSymbol = ""
             })
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+        }
     }
 }
 
